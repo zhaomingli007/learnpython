@@ -1,0 +1,11 @@
+from typing import List
+
+
+class Solution:
+    def matrixBlockSum(self, mat: List[List[int]], k: int) -> List[List[int]]:
+        """
+        Given a m x n matrix mat and an integer k, return a matrix answer where each answer[i][j] is the sum of all elements mat[r][c] for:
+            i - k <= r <= i + k,
+            j - k <= c <= j + k, and
+            (r, c) is a valid position in the matrix.
+        """
