@@ -27,4 +27,7 @@ print('t %.2f' % 3.1415)
 print('my string is {}'.format('abc'))
 print('my string is {:.2f}'.format(3.14159))
 v2 = 3.14
-print(f"the string is {v2}")
+# print(f"the string is {v2}")
+
+tests = not ''
+print('tests: {0}'.format(tests))
