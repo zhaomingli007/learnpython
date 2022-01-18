@@ -1,1 +1,1 @@
-perf_sqr
+(k+i) % n
