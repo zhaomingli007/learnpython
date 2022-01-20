@@ -1,1 +1,2 @@
-(k+i) % n
+ len(s1):
+                return True

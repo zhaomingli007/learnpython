@@ -10,14 +10,32 @@ class Solution:
     def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
         """
         head = [1,2,3,4,5], n = 2
-                i   j    
+                    i
+                        j , j>n
+                        
+        [1], n = 1
+         i
+         j, j = n
+         [1,2], n = 2
+          i
+            j =n 
+         if j == n: i = i.next
+         [1], n = 0
+          i
+          j n = 0 return head
+         
         """
+        if n == 0:
+            return head
         fast, slow = head, head
-        i = 0 
-        while not fast.next:
+        i = 0
+        while fast:
             if i > n:
                 slow = slow.next
             fast = fast.next
             i += 1
-        slow.next = slow.next.next
+        if i == n:
+            head = head.next
+        else:
+            slow.next = slow.next.next
         return head
