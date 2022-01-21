@@ -4,53 +4,39 @@ class Solution:
         Input: s1 = "ab", s2 = "eidbaooo"
         Output: true
         Explanation: s2 contains one permutation of s1 ("ba").        
-
-        s1='adc'
-            {a:1, d:1, c:1}
-            n = 3
-            tmp: {c:1, d:1,a:1}
-        s2='dcda'
-             i j
-        
-        'ab'
-        'eidbaooo'
-              i
-            j
         """
-        
-        s1m = {}
+        s1map = {}
+        n1 = len(s1)
         for c in s1:
-           if c in s1m:
-               s1m[c] += 1
-           else:
-               s1m[c] = 1
-        print(s1m)
+            s1map[c] = 1 if c not in s1map else s1map[c]+1
         start = 0
-        tmp = {}
         for i in range(len(s2)):
-            print(f'start {start}, i: {i} ')
-            
-            c = s2[i]
-            if c in s1m:
-                if c not in tmp:
-                    tmp[c] = 1
-                elif tmp[c]< s1m[c]:
-                        tmp[c] += 1
-                else:
-                    start += 1
-                    # tmp[c] -=1
-            else:
-                start = i+1
-                tmp = {}
-            print(tmp)
-            if i-start+1 == len(s1):
+            new = s2[i]
+            if new in s1map:
+                s1map[new] -= 1
+            if i - start+1 > n1:
+                if s2[start] in s1map:
+                    s1map[s2[start]] += 1
+                start+=1
+            #check if the substring is find
+            # print(f'start: {start}, i: {i}')
+            # print(s1map)
+            find = True
+            for k in s1map:
+                if s1map[k] != 0:
+                    find = False
+                    break
+            if find:
                 return True
         return False
+        
 if __name__ == '__main__':
     s = Solution()
     print(s.checkInclusion('hello',"ooolleoooleh"))
-    # print(s.checkInclusion('ab', "eidbaooo"))
-    # print(s.checkInclusion('adc', "dcda"))
+    #                               123456789012
+    print(s.checkInclusion('ab', "eidbaooo"))
+    print(s.checkInclusion('ab', "eidboaoo"))
+    print(s.checkInclusion('adc', "dcda"))
     
                 
         

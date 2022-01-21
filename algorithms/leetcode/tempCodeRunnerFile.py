@@ -1,2 +1,1 @@
- len(s1):
-                return True
+s1map
