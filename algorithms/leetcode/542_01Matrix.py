@@ -11,32 +11,29 @@ class Solution:
         Output: [[0,0,0],
                  [0,1,0],
                  [1,2,1]]
-        if mat[i][j] == 0, dis: 0
-        if  mat[i][j] == 1, check the adjacent recursively, find min(dis)
         """
         m = len(mat)
         n = len(mat[0])
-        visited = [[0] * n]*m
-        def rec_find(i:int,j:int):
-            if mat[i][j] == 0:
-                return 0
-            if visited[i][j]:
-                return 0
-            visited[i][j] = 1
-            l = mat[i][j] if j-1 < 0 else rec_find(i, j-1)
-            r = mat[i][j] if j+1 > n-1  else rec_find(i, j+1)
-            u = mat[i][j] if i-1 < 0 else rec_find(i-1, j)
-            d = mat[i][j] if i+1 > m-1 else rec_find(i+1, j)
-            visited[i][j] = 0
-            return min(l, r, u, d) + 1
-            
-           
 
-        for i in range(m):
-            for j in range(n):
-                if mat[i][j] == 1:
-                    # visited = [[0] * n]*m
-                    mat[i][j] = rec_find(i, j)
+        def update(x, y, h, v):
+            ud = float('inf') if x+h < 0 or x+h > m-1 else mat[x+h][y]
+            lr =  float('inf') if y+v < 0 or y+v > n-1 else mat[x][y+v]
+            if h<0: # top down
+                mat[x][y] = min(ud, lr)+1
+            else:
+                mat[x][y] = min(mat[x][y], min(ud, lr)+1)
+        def scan(bu):     
+            for i in range(m):
+                for j in range(n):
+                    if bu<0: #top down, left -> right
+                        x, y = i, j
+                    else: #bottom up, right -> left
+                        x, y = m - i -1, n - j -1
+                    if mat[x][y] > 0:
+                        update(x, y, bu, bu)
+                
+        scan(-1) #top down
+        scan(1) #bottom up
         return mat
     
 if __name__ == '__main__':
