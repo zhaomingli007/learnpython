@@ -15,32 +15,22 @@ class Node:
 class Solution:
     def connect(self, root: Optional['Node']) -> Optional['Node']:
         """
-        1,
-        2,3,
+           1,
+         2,  3,
         4,5,6,7
         """
-        #for each level
-        q = []
-        q.append(root)
-        def enqueue(node):
-            if node.left:
-                q.append(node.left)
-                q.append(node.right)
-                enqueue(node.left)
-                enqueue(node.right)
-        enqueue(root)
-        #1,  2,4,8,
-        #2^0,2^1
-        n = len(q)
-        for i in range(n):
-            if 2**i < n-1:
-                q[i].right = Node("#")
-            if not q[i].right and i<n-1:
-                q[i].right = q[i+1]
-        for nd in q:
-            if nd.right:
-                print(nd.right.val)
+        if not root:
+            return None
+        l, r, n = root.left, root.right, root.next
+        if l:
+            l.next = r
+            if n:
+                r.next = n.left
+            self.connect(l)
+            self.connect(r) 
         return root
+            
+          
 
 if __name__ == '__main__':
     s = Solution()
