@@ -23,21 +23,38 @@ class Solution:
         """
         m = len(grid)
         n = len(grid[0])
-        q = []
-        
+        sec = 0
+        q1 , q2 = [], []
         for i in range(m):
             for j in range(n):
                 if grid[i][j] == 2:
-                    q.append((i, j))
-        dir = [0, 1, -1,0, 0]
-        while len(q) > 0:
-            i, j = q.pop(0)
+                    q1.append((i, j))
+        dir = [0, -1, 0, 1, 0] # up: (0, -1), left: (-1, 0), down: (0, 1), right: (1, 0)
+        while len(q1) > 0:
+            i, j = q1.pop(0)
+            # print('i: ', i, ',j: ', j)
             for d in range(4):
-                if i-1 > 0 and grid[i-1]>0:
-                    grid[i-1][j] = 2
-                    q.append((i-1, j))
-                if i+1 > m-1 and grid[i+1]>0:
-                    grid[i+1][j] = 2
-                    q.append((i+1, j))
+                r = i + dir[d]
+                c = j + dir[d+1]
+                if -1 < r < m and -1 < c < n and grid[r][c] ==1:
+                    # print('r: ', r, ',c: ', c)
+                    grid[r][c] = 2
+                    q2.append((r, c))
+            if len(q1) == 0:
+                if len(q2)>0:
+                    sec += 1
+                q1, q2 = q2, []
+                
+        print(grid)
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == 1:
+                    return -1
+        return sec
             
-            
+if __name__ == '__main__':
+    s = Solution()
+    print(s.orangesRotting([[2, 1, 1], [1, 1, 0], [0, 1, 1]]))
+    print(s.orangesRotting([[2, 1, 1], [1, 1, 1], [0, 1, 2]]))
+    
+ 
