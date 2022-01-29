@@ -14,18 +14,24 @@ class Solution:
             [1,3],
             [1,4],
         ] 
-        0...n: [1,2,3,4], k = 2
-        1:(1,2),(1,3),(1,4) 
-        2:(2,3),(2,4)
-        3:(3,4)
-        4:
-        k = 3
-        1: (1, 2, 3), (1, 3, 4)
-        2: (2, 3, 4), (2, 1, 4)
-        3: 
-        4:
-        dp[i][k] from i to n, get k of comb; return a list
-        i + dp[i-1][k-1]
-        
+        0...n: [1,2,3,4], k = 2                 
+                
         """
-        pass
+        l = []
+        def dp(i, k, p):
+            """ 
+            Get 1 from i to n until k to 0
+            """
+            if k == 0:
+                l.append(p[:])
+            for j in range(i, n+1):
+                p.append(j)
+                dp(j+1, k-1, p)
+                p.pop()
+        dp(1, k, [])
+        return l
+
+if __name__ == '__main__':
+    s = Solution()
+    print(s.combine(5,3))
+    
