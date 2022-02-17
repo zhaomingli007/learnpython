@@ -1,0 +1,25 @@
+# Definition for a binary tree node.
+from typing import Optional
+
+
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+
+class Solution:
+    def inorderSuccessor(self, root: 'TreeNode', p: 'TreeNode') -> 'Optional[TreeNode]':
+        t = None
+        find = False
+        def in_order(next: TreeNode):
+            global t
+            if find:
+                t = next
+            if next:
+                in_order(next.left)
+                if next.val == p.val:
+                    find = True
+                in_order(next.right)
+        in_order(root)
+        return t
