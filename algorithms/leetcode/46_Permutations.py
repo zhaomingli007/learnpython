@@ -27,6 +27,29 @@ class Solution:
         bt(nums,[])
         return l
 
+    def permute2(self, nums: List[int]) -> List[List[int]]:
+        """
+        [1,2,3]
+        
+        """
+
+        def rec(sub, ans, cur):
+            l = len(sub)
+            if l == 0:
+                ans.append(cur[:])
+            else:
+                for i in range(l):
+                    cur.append(sub[i])
+                    rec(sub[i+1:], ans, cur)
+                    cur.pop()
+                    sub.append(sub[i])
+
+        ans = []
+
+        rec(nums, ans, [])
+        return ans
+
+
 if __name__ == '__main__':
     s = Solution()
     print(s.permute([1, 2, 3]))
