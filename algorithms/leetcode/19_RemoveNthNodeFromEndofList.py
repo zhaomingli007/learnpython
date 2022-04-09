@@ -39,3 +39,17 @@ class Solution:
         else:
             slow.next = slow.next.next
         return head
+
+    def removeNthFromEnd2(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        fast,slow = head, head
+        cnt = 0
+        while fast:
+            if cnt > n:
+                slow = slow.next
+            fast = fast.next
+            cnt+=1
+        if cnt > n:
+            slow.next = slow.next.next
+        else:
+            head = head.next
+        return head
